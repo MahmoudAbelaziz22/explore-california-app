@@ -1,8 +1,17 @@
 version: '3.7'
 services:
-   explore_calefornia:
-     build: 
+    explore_calefornia:
+      build: 
+          context: .
+          dockerfile: Dockerfile
+      ports:
+        - 80:80
+    unit-tests:
+      build:
+        dockerfile: rspec.dockerfile
         context: .
-        dockerfile: Dockerfile
-     ports:
-       - 80:80
+      volumes:
+        - ./:/explore-california-app
+      command:
+        - --pattern
+        - /explore-california-app/test/unit/*_spec.rb
